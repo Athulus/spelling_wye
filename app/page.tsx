@@ -1,10 +1,12 @@
 'use client'
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import words from "./spelling-wye-words";
 
-const AnswerContext = createContext({});
 
-function LetterButton({letter, color = "white"}: {letter:string, color:string}) { 
+type anserContextType = {currentAnswer:string, setCurrentAnswer:(a:string) => void};
+const AnswerContext = createContext<anserContextType>({} as anserContextType);
+
+function LetterButton({letter, color = "white"}: {letter:string, color?:string}) { 
   
   const {currentAnswer, setCurrentAnswer} = useContext(AnswerContext)
   return (
@@ -23,7 +25,7 @@ function LetterButton({letter, color = "white"}: {letter:string, color:string}) 
 export default function Home() {
 
   const letters = {keyLetter: "O", ringLetters: ["T", "I", "H", "N", "L", "B"]}
-  const [wordList, _] = useState(words.split("\n"))
+  const wordList = words.split("\n")
   const [currentAnswer, setCurrentAnswer] = useState("")
   const [score, setScore] = useState(0)
   const [foundWords, setFoundWords] = useState([""])
@@ -72,7 +74,8 @@ export default function Home() {
     setCurrentAnswer("")
   }
 
-  const restrictedKeyboard = (keyDownEvent) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const restrictedKeyboard = (keyDownEvent: any) => {
     if ([...letters.ringLetters, letters.keyLetter].includes(keyDownEvent.key.toUpperCase())){
       setCurrentAnswer(`${currentAnswer}${keyDownEvent.key.toUpperCase()}`)
     }
