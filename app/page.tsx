@@ -24,7 +24,7 @@ function LetterButton({letter, color = "white"}: {letter:string, color?:string})
 
 export default function Home() {
 
-  const letters = {keyLetter: "O", ringLetters: ["T", "I", "H", "N", "L", "B"]}
+  const letters = {keyLetter: "H", ringLetters: ["B", "R", "A", "T", "O", "M"]}
   const wordList = words.split("\n")
   const [currentAnswer, setCurrentAnswer] = useState("")
   const [score, setScore] = useState(0)
