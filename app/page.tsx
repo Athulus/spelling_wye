@@ -1,5 +1,6 @@
 'use client'
 import { createContext, useContext, useState } from "react";
+import Snackbar from '@mui/material/Snackbar';
 import words from "./spelling-wye-words";
 
 
@@ -29,18 +30,24 @@ export default function Home() {
   const [currentAnswer, setCurrentAnswer] = useState("")
   const [score, setScore] = useState(0)
   const [foundWords, setFoundWords] = useState([""])
+  const [notification, setNotification] = useState({open: false, message: ""})
+
+  const popNotification = (message: string) => {
+    setNotification({open: true, message: message})
+
+  }
 
   const checkWord  = () => {
     //check for minimum length
     if (currentAnswer.length < 4) {
-      alert("word must be length 4 or longer")
+      popNotification("word must be length 4 or longer")
       setCurrentAnswer("")
       return
     }
 
     //check for correct use of letters, must contain key Letter, must only ccontain the 7 included letters
     if (!currentAnswer.includes(letters.keyLetter)) {
-      alert(`word must contain the letter "${letters.keyLetter}"`)
+      popNotification(`word must contain the letter "${letters.keyLetter}"`)
       setCurrentAnswer("")
       return
     }
@@ -51,13 +58,13 @@ export default function Home() {
     //we could also cache any words that are scored so we don't have to make a call for them for another user
     //LOL neermind instead of calling an API i got a word list
     if (!wordList.includes(currentAnswer.toLowerCase())){
-      alert(`As far as we can tell "${currentAnswer}" is not a word. Sorry!`)
+      popNotification(`As far as we can tell "${currentAnswer}" is not a word. Sorry!`)
       console.log(wordList)
       setCurrentAnswer("")
       return
     }
     if (foundWords.includes(currentAnswer)){
-      alert(`"${currentAnswer}" has already been found`)
+      popNotification(`"${currentAnswer}" has already been found`)
       setCurrentAnswer("")
       return
     }
@@ -70,7 +77,7 @@ export default function Home() {
     // add word to found list
     setFoundWords([...foundWords, currentAnswer])
 
-    alert(`submitted "${currentAnswer}". scoring ${wordScore} points`)
+    popNotification(`submitted "${currentAnswer}". scoring ${wordScore} points`)
     setCurrentAnswer("")
   }
 
@@ -122,6 +129,13 @@ export default function Home() {
         <li key={index}> {word}</li>
       ))}</ul>
 
+      <Snackbar
+        open={notification.open}
+        message={notification.message}
+        autoHideDuration={500}
+        onClose={ () => setNotification({open:false, message: notification.message})}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+      />
 
       </main>
     </div>
