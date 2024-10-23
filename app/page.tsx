@@ -2,6 +2,7 @@
 import { createContext, useContext, useState } from "react";
 import Snackbar from '@mui/material/Snackbar';
 import words from "./spelling-wye-words";
+import lettersobj from "./letters.json"
 
 
 type anserContextType = {currentAnswer:string, setCurrentAnswer:(a:string) => void};
@@ -25,7 +26,7 @@ function LetterButton({letter, color = "white"}: {letter:string, color?:string})
 
 export default function Home() {
 
-  const letters = {keyLetter: "H", ringLetters: ["B", "R", "A", "T", "O", "M"]}
+  const letters = lettersobj
   const wordList = words.split("\n")
   const [currentAnswer, setCurrentAnswer] = useState("")
   const [score, setScore] = useState(0)
@@ -59,7 +60,6 @@ export default function Home() {
     //LOL neermind instead of calling an API i got a word list
     if (!wordList.includes(currentAnswer.toLowerCase())){
       popNotification(`As far as we can tell "${currentAnswer}" is not a word. Sorry!`)
-      console.log(wordList)
       setCurrentAnswer("")
       return
     }
@@ -72,12 +72,15 @@ export default function Home() {
     //calculate score
     // 4 letters - 1 point, 5+ letters - number of letters used points, pangolins, regular score + 7 additional points?
     const wordScore = currentAnswer.length ==4? 1: currentAnswer.length
-    setScore(score + wordScore)
+    const isPangolin = [... letters.ringLetters, letters.keyLetter].every(letter => currentAnswer.includes(letter))
+    const pangolinScore = (isPangolin? 7: 0)
+    
+    setScore(score + wordScore + pangolinScore)
 
     // add word to found list
     setFoundWords([...foundWords, currentAnswer])
 
-    popNotification(`submitted "${currentAnswer}". scoring ${wordScore} points`)
+    popNotification(`${isPangolin?"Pangolin! ": ""}submitted "${currentAnswer}". scoring ${wordScore} points`)
     setCurrentAnswer("")
   }
 
@@ -132,7 +135,7 @@ export default function Home() {
       <Snackbar
         open={notification.open}
         message={notification.message}
-        autoHideDuration={500}
+        autoHideDuration={1200}
         onClose={ () => setNotification({open:false, message: notification.message})}
         anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
       />
