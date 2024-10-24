@@ -20,4 +20,5 @@ jobs:
               env: 
                 reddit_secret: ${{secrets.REDDIT_SECRET}}
             - uses: stefanzweifel/git-auto-commit-action@v5
-            - uses: ./.github/workflows/nextjs.yml
+    deploy-next:
+        uses: ./.github/workflows/nextjs.yml
