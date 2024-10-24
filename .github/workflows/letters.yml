@@ -21,4 +21,5 @@ jobs:
                 reddit_secret: ${{secrets.REDDIT_SECRET}}
             - uses: stefanzweifel/git-auto-commit-action@v5
     deploy-next:
+        needs: get-letters
         uses: ./.github/workflows/nextjs.yml
