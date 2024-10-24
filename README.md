@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# Spelling Wye
+check out the game deployed on gh pages https://athulus.github.io/spelling_wye/
+
+This is a clone of the new york times game [spelling bee](https://www.nytimes.com/puzzles/spelling-bee). The motivation to create this was to allow an expanded word list. The word list we are currently using is from [wordnik](https://www.wordnik.com/)'s github https://github.com/wordnik/wordlist/tree/main
+
+# Nextjs generated readme
 ## Getting Started
 
 First, run the development server:
