@@ -2,6 +2,7 @@ import requests
 import json
 
 response = requests.get("https://old.reddit.com/user/NYTSpellingBeeBot/?limit=1")
+print(response.text)
 letter_list = response.text.split("data-url")[1].split('"')[1].split("/")[-2].split("_")
 letters = {
     "keyLetter": letter_list[3].upper(),
