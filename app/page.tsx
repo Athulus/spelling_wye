@@ -80,7 +80,7 @@ export default function Home() {
     // add word to found list
     setFoundWords([...foundWords, currentAnswer])
 
-    popNotification(`${isPangolin?"Pangolin! ": ""}submitted "${currentAnswer}". scoring ${wordScore} points`)
+    popNotification(`${isPangolin?"Pangolin! ": ""}submitted "${currentAnswer}". scoring ${wordScore + pangolinScore} points`)
     setCurrentAnswer("")
   }
 
