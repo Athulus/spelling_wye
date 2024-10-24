@@ -1,7 +1,10 @@
 import requests
 import json
 
-response = requests.get("https://old.reddit.com/user/NYTSpellingBeeBot/?limit=1")
+response = requests.get(
+    "https://old.reddit.com/user/NYTSpellingBeeBot/?limit=1",
+    headers={"User-Agent": "Spelling-Wye-0.1"},
+)
 print(response.text)
 letter_list = response.text.split("data-url")[1].split('"')[1].split("/")[-2].split("_")
 letters = {
