@@ -14,9 +14,9 @@ jobs:
             - uses: actions/setup-python@v5
               with:
                 python-version: '3.12'
-                cache: 'pipenv'
-            - run: pipenv install
-            - run: pipenv run python get_letters.py
+                cache: 'pip'
+            - run: pip install -r requirements.txt
+            - run: python get_letters.py
               env: 
                 reddit_secret: ${{secrets.REDDIT_SECRET}}
             - uses: stefanzweifel/git-auto-commit-action@v5
