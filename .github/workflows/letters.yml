@@ -3,7 +3,7 @@ name: fetch new letters from reddit
 
 on:
     schedule:
-        - cron: '0 5 * * *'
+        - cron: '0 9 * * *'
     workflow_dispatch:
 
 jobs:
