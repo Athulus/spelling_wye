@@ -8,14 +8,13 @@ import lettersobj from "./letters.json"
 type anserContextType = {currentAnswer:string, setCurrentAnswer:(a:string) => void};
 const AnswerContext = createContext<anserContextType>({} as anserContextType);
 
-function LetterButton({letter, color = "white"}: {letter:string, color?:string}) { 
+function LetterButton({letter, className = "bg-white"}: {letter:string, className?:string}) { 
   
   const {currentAnswer, setCurrentAnswer} = useContext(AnswerContext)
   return (
     <button
     onClick = {() => {setCurrentAnswer(`${currentAnswer}${letter}`)}}
-    style={{backgroundColor:color}}
-    className="rounded-full border border-solid border-transparent gap-2 transition-colors text-background text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+    className={`${className} rounded-full border border-solid border-transparent gap-2 transition-colors text-background text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5`}
     >
       {letter}
     </button>
@@ -101,28 +100,28 @@ export default function Home() {
   return (
     <AnswerContext.Provider value={{currentAnswer, setCurrentAnswer}}>
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-      <div className="text-align:center">
+      <main className="flex flex-col gap-8 columns-5 row-start-2 items-center sm:items-start">
+      <div className="">
         <LetterButton letter = {letters.ringLetters[0]}/>
         <LetterButton letter = {letters.ringLetters[1]}/>
       </div>
-      <div className="text-align:center">
+      <div className="">
         <LetterButton letter = {letters.ringLetters[2]}/>
-        <LetterButton letter = {letters.keyLetter} color = "cornflowerblue" />
+        <LetterButton className="bg-blue-400" letter = {letters.keyLetter} />
         <LetterButton letter = {letters.ringLetters[3]}/>
       </div>
-      <div className="text-align:center">
+      <div className="">
         <LetterButton letter = {letters.ringLetters[4]}/>
         <LetterButton letter = {letters.ringLetters[5]}/>
       </div>
 
-      <div className="text-align:center">
+      <div className="">
         <input className="text-background" value={currentAnswer} onKeyDown={restrictedKeyboard}/> 
       </div>
-      <div>
-        <button onClick={() => {setCurrentAnswer(currentAnswer.slice(0,-1))}}>delete</button>
+      <div className=" space-x-6">
+        <button className="bg-purple-400 border border-blue-400 rounded-md px-2" onClick={() => {setCurrentAnswer(currentAnswer.slice(0,-1))}}>delete</button>
         
-        <button onClick={checkWord}> submit</button>
+        <button className="bg-purple-400 border border-blue-400 rounded-md px-2" onClick={checkWord}> submit</button>
       </div>
 
       <label>Score: {score}</label>
